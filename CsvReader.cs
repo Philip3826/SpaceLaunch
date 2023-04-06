@@ -10,7 +10,7 @@ namespace SpaceLaunch
         private string filePath;
         private TextFieldParser parser;
         private List<List<string>> extractedRawData;
-
+        public List<List<string>> GetRawData => extractedRawData;
 
         public CsvReader(string filePath)
         {
@@ -25,8 +25,9 @@ namespace SpaceLaunch
         {
             extractedRawData = new List<List<string>>();
 
-            int numberOfColumns = parser.ReadFields().Length;
-
+            string[] days = parser.ReadFields();
+            int numberOfColumns = days.Length;
+            extractedRawData.Add(new List<string>(days));
 
             for(int i = 0; i < numberOfColumns; i++)
             {
@@ -36,7 +37,7 @@ namespace SpaceLaunch
             while(!parser.EndOfData)
             {
                 string[] row = parser.ReadFields();
-                for(int i = 0; i < numberOfColumns; i++)
+                for(int i = 1; i < numberOfColumns; i++)
                 {
                     extractedRawData[i].Add(row[i]);
                 }

@@ -6,48 +6,54 @@ namespace SpaceLaunch
 {
     class DayEntry
     {
-        private int date;
-        public int Date => date;
+        public int Date { get; private set; } = 1;
 
-        private int temperature;
-        public int Temperature => temperature;
+        public int Temperature { get; private set; } = 0;
 
-        private int windSpeed;
-        public int WindSpeed => windSpeed;
+        public int WindSpeed { get; private set; } = 0;
 
-        private int humidity;
-        public int Humidity => humidity;
+        public int Humidity { get; private set; } = 0;
 
-        private int precipitation;
-        public int Precipitation => precipitation;
+        public int Precipitation { get; private set; } = 0;
 
-        private bool lightning = false;
-        public bool Lightning => lightning;
+        public bool Lightning { get; private set; } = false;
 
-        private string cloudType;
-        public string CloudType => cloudType;
+        public string CloudType { get; private set; } = "";
 
-        private bool isValidLaunchDate = true;
-        public bool ValidLaunchDate => isValidLaunchDate;
+        public bool ValidLaunchDate { get; private set; } = false;
 
-        public DayEntry(int date, int temp, int speed, int humidity, int precipitation, string lightning, string cloudType)
+        public DayEntry(List<string> rawData)
         {
-            this.date = date;
-            this.temperature = temp;
-            this.windSpeed = speed;
-            this.humidity = humidity;
-            this.precipitation = precipitation;
-            this.cloudType = cloudType;
-            if (lightning == "Yes") this.lightning = true;
-            ValidateLaunchDate();
+            try
+            {
+                ParseRawData(rawData);
+                ValidateLaunchDate();
+            }catch(ArgumentException e)
+            {
+                Console.WriteLine(e.Message);
+            }
         }
         
+        private void ParseRawData(List<string> rawData)
+        {
+            this.Date = int.Parse(rawData[0]);
+            if (Date < 1 || Date > 15) throw new ArgumentException("Date is invalid");
+            this.Temperature = int.Parse(rawData[1]);
+            this.WindSpeed = int.Parse(rawData[2]);
+            this.Humidity = int.Parse(rawData[3]);
+            this.Precipitation = int.Parse(rawData[4]);
+            if (rawData[5] != "Yes" && rawData[5] != "No") throw new ArgumentException("Lightning field is not a yes or no");
+            if (rawData[5] == "Yes") this.Lightning = true;
+            this.CloudType = rawData[6];
+        }
         private void ValidateLaunchDate()
         {
-            if (temperature < 2 || temperature > 31) isValidLaunchDate = false;
-            if (windSpeed > 10 || humidity >= 60) isValidLaunchDate = false;
-            if (precipitation == 0 || !lightning) isValidLaunchDate = false;
-            if (cloudType == "Cumulus" || cloudType == "Nimbus") isValidLaunchDate = false;
+            if (Temperature < 2 || Temperature > 31) return;
+            if (WindSpeed > 10 || Humidity >= 60) return;
+            if (Precipitation == 0 || !Lightning) return;
+            if (CloudType == "Cumulus" || CloudType == "Nimbus") return;
+
+            ValidLaunchDate = true;
         }
     }
 }
