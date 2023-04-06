@@ -6,8 +6,8 @@ namespace SpaceLaunch
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
-            Console.WriteLine(args[0]);
+            CsvReader reader = new CsvReader("D:\\SpaceLaunch\\SpaceLaunch\\testData.csv");
+            reader.printData();
         }
     }
 }

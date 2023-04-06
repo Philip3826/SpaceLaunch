@@ -39,10 +39,10 @@ namespace SpaceLaunch
             this.precipitation = precipitation;
             this.cloudType = cloudType;
             if (lightning == "Yes") this.lightning = true;
-            validateLaunchDate();
+            ValidateLaunchDate();
         }
         
-        private void validateLaunchDate()
+        private void ValidateLaunchDate()
         {
             if (temperature < 2 || temperature > 31) isValidLaunchDate = false;
             if (windSpeed > 10 || humidity >= 60) isValidLaunchDate = false;
