@@ -13,17 +13,15 @@ namespace SpaceLaunch
         public double AverageValue { get; private set; } = 0;
         public double MedianValue { get; private set; } = 0;
         public int BestLaunchDay { get; private set; } = 0;
-        private int upperBound = int.MaxValue;
-        private int lowerBound = int.MinValue;
         private List<int> values;
         public List<int> Values => values;
         public NumberFieldSummary(List<int> values, string name, int lowerBound, int upperBound )
         {
             this.values = values;
             this.FieldName = name;
-            this.lowerBound = lowerBound;
-            this.upperBound = upperBound;
+            
             CalculateSummary();
+            CalculateBestLaunchDay(lowerBound, upperBound);
         }
 
         private void CalculateSummary()
@@ -32,13 +30,25 @@ namespace SpaceLaunch
             copyValues.Sort();
             MinimalValue = copyValues[0];
             MaximumValue = copyValues.Last();
-            AverageValue = (double)(copyValues.Sum() / copyValues.Count);
+            AverageValue = copyValues.Sum() / copyValues.Count;
 
             if (copyValues.Count % 2 == 0)
             {
-                MedianValue = (double)(copyValues[copyValues.Count / 2] + copyValues[(copyValues.Count/ 2) -1]);
+                MedianValue = copyValues[copyValues.Count / 2] + copyValues[(copyValues.Count/ 2) -1];
             }
             else MedianValue = copyValues[copyValues.Count / 2];
+        }
+        private void CalculateBestLaunchDay(int lowerBound, int upperBound)
+        {
+            int currentLowest = int.MinValue;
+            for (int i = 0; i < values.Count; i++)
+            {
+                if (values[i] > lowerBound && values[i] < upperBound && values[i] < currentLowest)
+                {
+                    currentLowest = values[i];
+                    BestLaunchDay = i + 1;
+                }
+            }
         }
        
     }

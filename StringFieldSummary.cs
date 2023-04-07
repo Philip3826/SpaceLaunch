@@ -37,6 +37,7 @@ namespace SpaceLaunch
                             break;
                         }
                     }break;
+                default:break;
             }
         }
     }
