@@ -21,6 +21,7 @@ namespace SpaceLaunch
         public string CloudType { get; private set; } = "";
 
         public bool ValidLaunchDate { get; private set; } = false;
+        public bool ValidData { get; private set; } = true;
 
         public DayEntry(List<string> rawData)
         {
@@ -31,6 +32,7 @@ namespace SpaceLaunch
             }catch(ArgumentException e)
             {
                 Console.WriteLine(e.Message);
+                ValidData = false;
             }
         }
         
