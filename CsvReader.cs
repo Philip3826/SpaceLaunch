@@ -1,7 +1,6 @@
-﻿using System;
+﻿using Microsoft.VisualBasic.FileIO;
+using System;
 using System.Collections.Generic;
-using System.Text;
-using Microsoft.VisualBasic.FileIO; 
 
 namespace SpaceLaunch
 {
@@ -26,18 +25,21 @@ namespace SpaceLaunch
             extractedRawData = new List<List<string>>();
 
             string[] days = parser.ReadFields();
-            int numberOfColumns = days.Length;
-            extractedRawData.Add(new List<string>(days));
+            int numberOfColumns = days.Length;        
 
-            for(int i = 0; i < numberOfColumns; i++)
+            for (int i = 0; i < numberOfColumns; i++)
             {
                 extractedRawData.Add(new List<string>());
             }
+            for(int i = 0; i < numberOfColumns;i++)
+            {
+                extractedRawData[i].Add(days[i]);
+            }
 
-            while(!parser.EndOfData)
+            while (!parser.EndOfData)
             {
                 string[] row = parser.ReadFields();
-                for(int i = 1; i < numberOfColumns; i++)
+                for (int i = 0; i < numberOfColumns; i++)
                 {
                     extractedRawData[i].Add(row[i]);
                 }
@@ -48,15 +50,15 @@ namespace SpaceLaunch
 
         public void printData()
         {
-            for(int i = 0; i < extractedRawData.Count; i++)
+            for (int i = 0; i < extractedRawData.Count; i++)
             {
-                for(int j = 0; j < extractedRawData[i].Count; j++)
+                for (int j = 0; j < extractedRawData[i].Count; j++)
                 {
                     Console.Write(extractedRawData[i][j] + ",");
                 }
                 Console.WriteLine();
             }
         }
-        
+
     }
 }

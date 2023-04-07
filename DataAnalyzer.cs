@@ -6,5 +6,11 @@ namespace SpaceLaunch
 {
     class DataAnalyzer
     {
+
+
+        DataAnalyzer(List<List<string>> rawData)
+        {
+
+        }
     }
 }

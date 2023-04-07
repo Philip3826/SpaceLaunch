@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace SpaceLaunch
 {
@@ -29,13 +28,14 @@ namespace SpaceLaunch
             {
                 ParseRawData(rawData);
                 ValidateLaunchDate();
-            }catch(ArgumentException e)
+            }
+            catch (ArgumentException e)
             {
                 Console.WriteLine(e.Message);
                 ValidData = false;
             }
         }
-        
+
         private void ParseRawData(List<string> rawData)
         {
             this.Date = int.Parse(rawData[0]);

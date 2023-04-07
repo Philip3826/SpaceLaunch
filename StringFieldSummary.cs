@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace SpaceLaunch
 {
@@ -16,28 +14,29 @@ namespace SpaceLaunch
             this.FieldName = name;
             CalculateBestLaunchDate();
         }
-        
+
         private void CalculateBestLaunchDate()
         {
             switch (FieldName)
             {
                 case "Lightning":
                     {
-                        for(int i = 0; i < values.Count; i++)
+                        for (int i = 0; i < values.Count; i++)
                         {
-                            if (values[i] == "Yes") BestLaunchDate = i + 1;
-                            break;
+                            if (values[i] == "Yes") { BestLaunchDate = i + 1; break; }
+                            
                         }
-                    }break;
+                    }
+                    break;
                 case "Clouds":
                     {
                         for (int i = 0; i < values.Count; i++)
                         {
-                            if (values[i] != "Cumulus" && values[i] != "Nimbus") BestLaunchDate = i + 1;
-                            break;
+                            if (values[i] != "Cumulus" && values[i] != "Nimbus") { BestLaunchDate = i + 1; break; }
                         }
-                    }break;
-                default:break;
+                    }
+                    break;
+                default: break;
             }
         }
     }

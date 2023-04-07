@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace SpaceLaunch
@@ -15,11 +13,11 @@ namespace SpaceLaunch
         public int BestLaunchDay { get; private set; } = 0;
         private List<int> values;
         public List<int> Values => values;
-        public NumberFieldSummary(List<int> values, string name, int lowerBound, int upperBound )
+        public NumberFieldSummary(List<int> values, string name, int lowerBound, int upperBound)
         {
             this.values = values;
             this.FieldName = name;
-            
+
             CalculateSummary();
             CalculateBestLaunchDay(lowerBound, upperBound);
         }
@@ -34,7 +32,7 @@ namespace SpaceLaunch
 
             if (copyValues.Count % 2 == 0)
             {
-                MedianValue = copyValues[copyValues.Count / 2] + copyValues[(copyValues.Count/ 2) -1];
+                MedianValue = copyValues[copyValues.Count / 2] + copyValues[(copyValues.Count / 2) - 1];
             }
             else MedianValue = copyValues[copyValues.Count / 2];
         }
@@ -50,6 +48,6 @@ namespace SpaceLaunch
                 }
             }
         }
-       
+
     }
 }
