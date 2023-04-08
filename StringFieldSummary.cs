@@ -23,8 +23,7 @@ namespace SpaceLaunch
                     {
                         for (int i = 0; i < values.Count; i++)
                         {
-                            if (values[i] == "Yes") { BestLaunchDate = i + 1; break; }
-                            
+                            if (values[i] == "No") { BestLaunchDate = i + 1; break; }
                         }
                     }
                     break;

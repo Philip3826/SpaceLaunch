@@ -2,6 +2,6 @@ Day,1,2,3,4,5,6
 Temperature,28,28,29,30,31,25
 Wind,15,13,12,14,11,8
 Humidity,20,30,30,35,60,10
-Precipitation,0,0,0,0,0,0
+Precipitation,0,0,20,0,10,0
 Lightning,No,No,No,No,No,No
 Clouds,Cumulus,Cumulus,Stratus,Stratus,Stratus,Stratus

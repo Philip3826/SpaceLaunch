@@ -24,21 +24,21 @@ namespace SpaceLaunch
 
         private void CalculateSummary()
         {
-            List<int> copyValues = values;
+            List<int> copyValues = new List<int>(values);
             copyValues.Sort();
             MinimalValue = copyValues[0];
             MaximumValue = copyValues.Last();
-            AverageValue = copyValues.Sum() / copyValues.Count;
+            AverageValue = (double)copyValues.Sum() / copyValues.Count;
 
             if (copyValues.Count % 2 == 0)
             {
-                MedianValue = copyValues[copyValues.Count / 2] + copyValues[(copyValues.Count / 2) - 1];
+                MedianValue = (double)(copyValues[copyValues.Count / 2] + copyValues[(copyValues.Count / 2) - 1])/2;
             }
             else MedianValue = copyValues[copyValues.Count / 2];
         }
         private void CalculateBestLaunchDay(int lowerBound, int upperBound)
         {
-            int currentLowest = int.MinValue;
+            int currentLowest = int.MaxValue;
             for (int i = 0; i < values.Count; i++)
             {
                 if (values[i] > lowerBound && values[i] < upperBound && values[i] < currentLowest)
