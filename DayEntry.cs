@@ -29,7 +29,7 @@ namespace SpaceLaunch
                 ParseRawData(rawData);
                 ValidateLaunchDate();
             }
-            catch (ArgumentException e)
+            catch (Exception e)
             {
                 Console.WriteLine(e.Message);
                 ValidData = false;
@@ -42,8 +42,11 @@ namespace SpaceLaunch
             if (Date < 1 || Date > 15) throw new ArgumentException("Date is invalid");
             this.Temperature = int.Parse(rawData[1]);
             this.WindSpeed = int.Parse(rawData[2]);
+            if (WindSpeed < 0) throw new ArgumentException("Wind speed must be a >= 0 number");
             this.Humidity = int.Parse(rawData[3]);
+            if (Humidity < 0 || Humidity > 100) throw new ArgumentException("Humidity is a percentage");
             this.Precipitation = int.Parse(rawData[4]);
+            if (Precipitation < 0 || Precipitation > 100) throw new ArgumentException("Precipitation is a percentage");
             if (rawData[5] != "Yes" && rawData[5] != "No") throw new ArgumentException("Lightning field is not a yes or no");
             if (rawData[5] == "Yes") this.Lightning = true;
             this.CloudType = rawData[6];

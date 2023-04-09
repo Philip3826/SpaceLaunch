@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 namespace SpaceLaunch
@@ -16,7 +17,16 @@ namespace SpaceLaunch
         private void WriteNumberData(List<string> data, int lowerBound, int upperBound, string name)
         {
             List<string> removeName = data.GetRange(1, data.Count - 1);
-            List<int> convertedValues = removeName.Select(int.Parse).ToList();
+            List<int> convertedValues;
+            try
+            {
+                convertedValues = removeName.Select(int.Parse).ToList();
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Input data was not in the correct format");
+                return;
+            }
             NumberFieldSummary numberData = new NumberFieldSummary(convertedValues, name, lowerBound, upperBound);
             writer.WriteLine(name + "," + numberData.AverageValue + "," + numberData.MinimalValue + "," + numberData.MaximumValue + "," +
                              numberData.MedianValue + "," + numberData.BestLaunchDay);
