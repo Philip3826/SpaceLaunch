@@ -38,13 +38,28 @@ namespace SpaceLaunch
         }
         private void CalculateBestLaunchDay(int lowerBound, int upperBound)
         {
-            int currentLowest = int.MaxValue;
-            for (int i = 0; i < values.Count; i++)
+            if (FieldName == "Wind" || FieldName == "Humidity")
             {
-                if (values[i] > lowerBound && values[i] < upperBound && values[i] < currentLowest)
+                int currentLowest = int.MaxValue;
+                for (int i = 0; i < values.Count; i++)
                 {
-                    currentLowest = values[i];
-                    BestLaunchDay = i + 1;
+                    if (values[i] > lowerBound && values[i] < upperBound && values[i] < currentLowest)
+                    {
+                        currentLowest = values[i];
+                        BestLaunchDay = i + 1;
+                    }
+                }
+            }
+
+            if(FieldName == "Temperature" || FieldName == "Precipitation")
+            {
+                for(int i = 0; i < values.Count;i++)
+                {
+                    if (values[i] >= lowerBound && values[i] <= upperBound)
+                    {
+                        BestLaunchDay = i + 1;
+                        break;
+                    }
                 }
             }
         }
