@@ -52,7 +52,7 @@ namespace SpaceLaunch
         {
             if (Temperature < 2 || Temperature > 31) return;
             if (WindSpeed > 10 || Humidity >= 60) return;
-            if (Precipitation == 0 || !Lightning) return;
+            if (Precipitation != 0 || Lightning) return;
             if (CloudType == "Cumulus" || CloudType == "Nimbus") return;
 
             ValidLaunchDate = true;
