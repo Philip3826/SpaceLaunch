@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 namespace SpaceLaunch
 {
     class CsvReader
@@ -15,26 +16,28 @@ namespace SpaceLaunch
         public CsvReader(string filePath)
         {
             this.filePath = filePath; // assume filePath is already validated
+
+            ExtractData(filePath);
             
-            ExtractDataByColumns(filePath);
-            ExtractDataByRows(filePath);
         }
 
-        private void ExtractDataByColumns(string filePath)
-        {   
+        private void ExtractData(string filePath)
+        {
             this.parser = new TextFieldParser(filePath);
             this.parser.TextFieldType = FieldType.Delimited;
             this.parser.SetDelimiters(",");
             extractedRawDataColumns = new List<List<string>>();
+            extractedRawDataRows = new List<List<string>>();
 
             string[] days = parser.ReadFields();
-            int numberOfColumns = days.Length;        
+            int numberOfColumns = days.Length;
+            extractedRawDataRows.Add(days.ToList());
 
             for (int i = 0; i < numberOfColumns; i++)
             {
                 extractedRawDataColumns.Add(new List<string>());
             }
-            for(int i = 0; i < numberOfColumns;i++)
+            for (int i = 0; i < numberOfColumns; i++)
             {
                 extractedRawDataColumns[i].Add(days[i]);
             }
@@ -42,27 +45,13 @@ namespace SpaceLaunch
             while (!parser.EndOfData)
             {
                 string[] row = parser.ReadFields();
+                extractedRawDataRows.Add(row.ToList());
                 for (int i = 0; i < numberOfColumns; i++)
                 {
                     extractedRawDataColumns[i].Add(row[i]);
                 }
             }
 
-            parser.Close();
-        }
-        private void ExtractDataByRows(string filePath)
-        {
-            this.parser = new TextFieldParser(filePath);
-            this.parser.TextFieldType = FieldType.Delimited;
-            this.parser.SetDelimiters(",");
-            extractedRawDataRows = new List<List<string>>();
-            while(!parser.EndOfData)
-            {
-                string[] rowArray = parser.ReadFields();
-                List<string> rowList = new List<string>(rowArray);
-               
-                extractedRawDataRows.Add(rowList);
-            }
             parser.Close();
         }
         public void printData()
