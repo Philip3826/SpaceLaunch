@@ -37,6 +37,8 @@ namespace SpaceLaunch
         {
             if(currentDay.ValidLaunchDate)
             {
+                if (!currentBest.ValidData) return true;
+
                 if (currentDay.WindSpeed < currentBest.WindSpeed) return true;
                 else if (currentDay.WindSpeed == currentBest.WindSpeed && currentDay.Humidity < currentBest.Humidity) return true;
 
