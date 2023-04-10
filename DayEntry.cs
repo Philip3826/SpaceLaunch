@@ -29,7 +29,7 @@ namespace SpaceLaunch
                 ParseRawData(rawData);
                 ValidateLaunchDate();
             }
-            catch (Exception e)
+                catch (Exception e)
             {
                 Console.WriteLine(e.Message);
                 ValidData = false;
@@ -39,7 +39,7 @@ namespace SpaceLaunch
         private void ParseRawData(List<string> rawData)
         {
             this.Date = int.Parse(rawData[0]);
-            if (Date < 1 || Date > 15) throw new ArgumentException("Date is invalid");
+            if (Date < 1 || Date > 31) throw new ArgumentException("Date is invalid");
             this.Temperature = int.Parse(rawData[1]);
             this.WindSpeed = int.Parse(rawData[2]);
             if (WindSpeed < 0) throw new ArgumentException("Wind speed must be a >= 0 number");

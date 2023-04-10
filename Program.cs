@@ -16,6 +16,11 @@ namespace SpaceLaunch
             }
             Console.WriteLine();
             CsvReader reader = new CsvReader(filePathInput);
+            if(!reader.ValidateFieldNames())
+            {
+                Console.WriteLine("Invalid Fields in the csv file!");
+                return;
+            }
             string filePathOutput = Path.GetDirectoryName(filePathInput) + "\\WeatherReport.csv";
             CsvWriter csvWriter = new CsvWriter(reader.GetRawDataRows, filePathOutput);
 

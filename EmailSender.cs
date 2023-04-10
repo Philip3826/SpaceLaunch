@@ -29,7 +29,7 @@ namespace SpaceLaunch
             MailMessage mailMessage = new MailMessage();
             mailMessage.From = new MailAddress(SenderAddress);
             mailMessage.To.Add(new MailAddress(ReceiverAddress));
-            mailMessage.Subject = "Weather report for rocket launch";
+            mailMessage.Subject = "Weather report for rocket launch!";
             mailMessage.Body = "Best Launch day is : " + BestLaunchDate.ToString();
 
             Attachment attachment = new Attachment(FilePath);
