@@ -7,9 +7,11 @@ namespace SpaceLaunch
     class CsvWriter
     {
         StreamWriter writer;
+        public string FilePath { get; set; } = "";
         public CsvWriter(List<List<string>> rawData, string filePath)
         {
             writer = new StreamWriter(filePath);
+            FilePath = filePath;
             writer.WriteLine("Parameters,AverageValue,MinValue,MaxValue,MedianValue,BestLaunchDate");
             WriteSummarizedData(rawData);
         }
