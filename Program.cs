@@ -1,22 +1,45 @@
 ﻿using System;
-using System.Net;
-using System.Net.Mail;
+using System.IO;
 namespace SpaceLaunch
 {
     class Program
     {
         static void Main(string[] args)
         {
-            CsvReader reader = new CsvReader("C:\\Users\\Radena\\Source\\Repos\\SpaceLaunch\\testData.csv");
-            reader.printData();
-            //some changes here 
-            CsvWriter writer = new CsvWriter(reader.GetRawDataRows, "C:\\Users\\Radena\\Source\\Repos\\SpaceLaunch\\WeatherReport.csv");
-            DataAnalyzer dataAnalyzer = new DataAnalyzer(reader.GetRawDataColumns.GetRange(1, reader.GetRawDataColumns.Count - 1));
-            int day = dataAnalyzer.CalculateBestLaunchDay();
+            Console.WriteLine("Hello! Welcome to Space Launch Calculator");
+            Console.WriteLine("Please input the full path of a csv file containing the weather report for the month!");
+            string filePathInput = Console.ReadLine();
+            if (!File.Exists(filePathInput) || Path.GetExtension(filePathInput) != ".csv")
+            {
+                Console.WriteLine("The provided path is not a valid one!");
+                return;
+            }
+            Console.WriteLine();
+            CsvReader reader = new CsvReader(filePathInput);
+            string filePathOutput = Path.GetDirectoryName(filePathInput) + "\\WeatherReport.csv";
+            CsvWriter csvWriter = new CsvWriter(reader.GetRawDataRows, filePathOutput);
 
-            EmailSender email = new EmailSender("philipgg11@gmail.com", "znqwgykrritrstxo",
-                                                "philipgg11@gmail.com", "C:\\Users\\Radena\\Source\\Repos\\SpaceLaunch\\WeatherReport.csv", day);
-            email.Send();
+            DataAnalyzer dataAnalyzer = new DataAnalyzer(reader.GetRawDataColumns.GetRange(1, reader.GetRawDataColumns.Count - 1));
+            int bestDay = dataAnalyzer.CalculateBestLaunchDay();
+
+            Console.WriteLine("Please provide email address(gmail) and password(See README for instructions) of the sender:");
+            Console.Write("Email:");
+            string senderAddress = Console.ReadLine();
+            Console.Write("Password:");
+            string senderPassword = Console.ReadLine();
+            Console.WriteLine("Please provide the email of the receiver:");
+            string receiverAddress = Console.ReadLine();
+            EmailSender emailSender = new EmailSender(senderAddress, senderPassword,receiverAddress,filePathOutput,bestDay);
+            try
+            {
+                emailSender.Send();
+            }
+            catch   (Exception ex) 
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+
         }
     }
 }

@@ -25,6 +25,7 @@ namespace SpaceLaunch
 
         public void Send() 
         {
+
             MailMessage mailMessage = new MailMessage();
             mailMessage.From = new MailAddress(SenderAddress);
             mailMessage.To.Add(new MailAddress(ReceiverAddress));
