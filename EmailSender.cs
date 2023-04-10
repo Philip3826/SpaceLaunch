@@ -1,20 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Net;
 using System.Net.Mail;
 
 namespace SpaceLaunch
 {
-     class EmailSender
+    class EmailSender
     {
         public string SenderAddress { get; set; } = "";
         public string SenderPswd { get; set; } = "";
         public string ReceiverAddress { get; set; } = "";
         public string FilePath { get; set; } = "";
         public int BestLaunchDate { get; set; } = 0;
-        public EmailSender(string senderAddress, string senderPswd, 
-                           string receiverAddres,string filePath, int bestLaunchDate) 
+        public EmailSender(string senderAddress, string senderPswd,
+                           string receiverAddres, string filePath, int bestLaunchDate)
         {
             SenderAddress = senderAddress;
             SenderPswd = senderPswd;
@@ -23,7 +21,7 @@ namespace SpaceLaunch
             BestLaunchDate = bestLaunchDate;
         }
 
-        public void Send() 
+        public void Send()
         {
 
             MailMessage mailMessage = new MailMessage();

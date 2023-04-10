@@ -18,7 +18,7 @@ namespace SpaceLaunch
             this.filePath = filePath; // assume filePath is already validated
 
             ExtractData(filePath);
-            
+
         }
 
         private void ExtractData(string filePath)
@@ -65,7 +65,7 @@ namespace SpaceLaunch
                 Console.WriteLine();
             }
         }
-        
+
 
         public bool ValidateFieldNames()
         {

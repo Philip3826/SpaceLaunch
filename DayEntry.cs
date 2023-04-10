@@ -29,7 +29,7 @@ namespace SpaceLaunch
                 ParseRawData(rawData);
                 ValidateLaunchDate();
             }
-                catch (Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine(e.Message);
                 ValidData = false;

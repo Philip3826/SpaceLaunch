@@ -33,7 +33,7 @@ namespace SpaceLaunch
             writer.WriteLine(name + "," + numberData.AverageValue + "," + numberData.MinimalValue + "," + numberData.MaximumValue + "," +
                              numberData.MedianValue + "," + numberData.BestLaunchDay);
         }
-        private void WriteStringData(List<string> data, string name )
+        private void WriteStringData(List<string> data, string name)
         {
             StringFieldSummary stringData = new StringFieldSummary(data.GetRange(1, data.Count - 1), name);
             writer.WriteLine(name + ",,,,," + stringData.BestLaunchDate);
@@ -63,7 +63,8 @@ namespace SpaceLaunch
                     case "Precipitation":
                         {
                             WriteNumberData(l, 0, 0, name);
-                        }break;
+                        }
+                        break;
                     case "Lightning":
                         {
                             WriteStringData(l, name);
@@ -72,7 +73,8 @@ namespace SpaceLaunch
                     case "Clouds":
                         {
                             WriteStringData(l, name);
-                        }break;
+                        }
+                        break;
                     default:
                         break;
                 }

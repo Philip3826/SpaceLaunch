@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace SpaceLaunch
 {
@@ -21,9 +19,9 @@ namespace SpaceLaunch
         public int CalculateBestLaunchDay()
         {
             DayEntry currentBestDay = dayEntries[0];
-            foreach(DayEntry dayEntry in dayEntries) 
+            foreach (DayEntry dayEntry in dayEntries)
             {
-                if(CompareDays(currentBestDay, dayEntry))
+                if (CompareDays(currentBestDay, dayEntry))
                 {
                     currentBestDay = dayEntry;
                 }
@@ -33,9 +31,9 @@ namespace SpaceLaunch
             return 0;
         }
 
-        private bool CompareDays(DayEntry currentBest, DayEntry currentDay) 
+        private bool CompareDays(DayEntry currentBest, DayEntry currentDay)
         {
-            if(currentDay.ValidLaunchDate)
+            if (currentDay.ValidLaunchDate)
             {
                 if (!currentBest.ValidData) return true;
 

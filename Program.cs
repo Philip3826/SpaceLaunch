@@ -16,7 +16,7 @@ namespace SpaceLaunch
             }
             Console.WriteLine();
             CsvReader reader = new CsvReader(filePathInput);
-            if(!reader.ValidateFieldNames())
+            if (!reader.ValidateFieldNames())
             {
                 Console.WriteLine("Invalid Fields in the csv file!");
                 return;
@@ -34,12 +34,12 @@ namespace SpaceLaunch
             string senderPassword = Console.ReadLine();
             Console.WriteLine("Please provide the email of the receiver:");
             string receiverAddress = Console.ReadLine();
-            EmailSender emailSender = new EmailSender(senderAddress, senderPassword,receiverAddress,filePathOutput,bestDay);
+            EmailSender emailSender = new EmailSender(senderAddress, senderPassword, receiverAddress, filePathOutput, bestDay);
             try
             {
                 emailSender.Send();
             }
-            catch   (Exception ex) 
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }

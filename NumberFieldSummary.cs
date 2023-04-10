@@ -32,7 +32,7 @@ namespace SpaceLaunch
 
             if (copyValues.Count % 2 == 0)
             {
-                MedianValue = (double)(copyValues[copyValues.Count / 2] + copyValues[(copyValues.Count / 2) - 1])/2;
+                MedianValue = (double)(copyValues[copyValues.Count / 2] + copyValues[(copyValues.Count / 2) - 1]) / 2;
             }
             else MedianValue = copyValues[copyValues.Count / 2];
         }
@@ -51,9 +51,9 @@ namespace SpaceLaunch
                 }
             }
 
-            if(FieldName == "Temperature" || FieldName == "Precipitation")
+            if (FieldName == "Temperature" || FieldName == "Precipitation")
             {
-                for(int i = 0; i < values.Count;i++)
+                for (int i = 0; i < values.Count; i++)
                 {
                     if (values[i] >= lowerBound && values[i] <= upperBound)
                     {
