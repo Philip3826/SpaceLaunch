@@ -1,7 +1,0 @@
-Parameters,AverageValue,MinValue,MaxValue,MedianValue,BestLaunchDate
-Temperature,27.8,3,32,29,1
-Wind,6.933333333333334,2,15,5,11
-Humidity,40.666666666666664,0,120,30,13
-Precipitation,8,0,40,0,1
-Lightning,,,,,1
-Clouds,,,,,3
