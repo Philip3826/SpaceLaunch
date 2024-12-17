@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace SpaceLaunch
+namespace SpaceLaunch.Classes
 {
     class NumberFieldSummary
     {
@@ -16,7 +16,7 @@ namespace SpaceLaunch
         public NumberFieldSummary(List<int> values, string name, int lowerBound, int upperBound)
         {
             this.values = values;
-            this.FieldName = name;
+            FieldName = name;
 
             CalculateSummary();
             CalculateBestLaunchDay(lowerBound, upperBound);
@@ -32,7 +32,7 @@ namespace SpaceLaunch
 
             if (copyValues.Count % 2 == 0)
             {
-                MedianValue = (double)(copyValues[copyValues.Count / 2] + copyValues[(copyValues.Count / 2) - 1]) / 2;
+                MedianValue = (double)(copyValues[copyValues.Count / 2] + copyValues[copyValues.Count / 2 - 1]) / 2;
             }
             else MedianValue = copyValues[copyValues.Count / 2];
         }

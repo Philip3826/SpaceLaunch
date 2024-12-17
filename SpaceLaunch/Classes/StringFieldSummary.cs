@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace SpaceLaunch
+namespace SpaceLaunch.Classes
 {
     class StringFieldSummary
     {
@@ -11,7 +11,7 @@ namespace SpaceLaunch
         public StringFieldSummary(List<string> values, string name)
         {
             this.values = values;
-            this.FieldName = name;
+            FieldName = name;
             CalculateBestLaunchDate();
         }
 

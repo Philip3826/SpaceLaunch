@@ -2,7 +2,7 @@
 using System.Net;
 using System.Net.Mail;
 
-namespace SpaceLaunch
+namespace SpaceLaunch.Classes
 {
     class EmailSender
     {

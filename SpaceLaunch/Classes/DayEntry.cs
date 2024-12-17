@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace SpaceLaunch
+namespace SpaceLaunch.Classes
 {
     class DayEntry
     {
@@ -38,18 +38,18 @@ namespace SpaceLaunch
 
         private void ParseRawData(List<string> rawData)
         {
-            this.Date = int.Parse(rawData[0]);
+            Date = int.Parse(rawData[0]);
             if (Date < 1 || Date > 31) throw new ArgumentException("An invalid Date found in the data");
-            this.Temperature = int.Parse(rawData[1]);
-            this.WindSpeed = int.Parse(rawData[2]);
+            Temperature = int.Parse(rawData[1]);
+            WindSpeed = int.Parse(rawData[2]);
             if (WindSpeed < 0) throw new ArgumentException("Wind speed that is less than 0m/s found in the data");
-            this.Humidity = int.Parse(rawData[3]);
+            Humidity = int.Parse(rawData[3]);
             if (Humidity < 0 || Humidity > 100) throw new ArgumentException("Humidity that is not a percentage found in the data");
-            this.Precipitation = int.Parse(rawData[4]);
+            Precipitation = int.Parse(rawData[4]);
             if (Precipitation < 0 || Precipitation > 100) throw new ArgumentException("Precipitation that is not a percentage found in the data");
             if (rawData[5] != "Yes" && rawData[5] != "No") throw new ArgumentException("Lightning field that is not yes/no found in the data");
-            if (rawData[5] == "Yes") this.Lightning = true;
-            this.CloudType = rawData[6];
+            if (rawData[5] == "Yes") Lightning = true;
+            CloudType = rawData[6];
         }
         private void ValidateLaunchDate()
         {

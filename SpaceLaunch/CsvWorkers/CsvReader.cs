@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace SpaceLaunch
+namespace SpaceLaunch.CsvWorkers
 {
     class CsvReader
     {
@@ -23,9 +23,9 @@ namespace SpaceLaunch
 
         private void ExtractData(string filePath)
         {
-            this.parser = new TextFieldParser(filePath);
-            this.parser.TextFieldType = FieldType.Delimited;
-            this.parser.SetDelimiters(",");
+            parser = new TextFieldParser(filePath);
+            parser.TextFieldType = FieldType.Delimited;
+            parser.SetDelimiters(",");
             extractedRawDataColumns = new List<List<string>>();
             extractedRawDataRows = new List<List<string>>();
 

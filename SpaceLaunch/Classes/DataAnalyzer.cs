@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace SpaceLaunch
+namespace SpaceLaunch.Classes
 {
     class DataAnalyzer
     {
