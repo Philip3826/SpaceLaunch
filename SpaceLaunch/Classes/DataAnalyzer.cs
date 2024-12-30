@@ -2,7 +2,7 @@
 
 namespace SpaceLaunch.Classes
 {
-    class DataAnalyzer
+    public class DataAnalyzer
     {
         List<DayEntry> dayEntries;
 
@@ -18,6 +18,11 @@ namespace SpaceLaunch.Classes
 
         public int CalculateBestLaunchDay()
         {
+            if (dayEntries.Count == 0)
+            {
+                return 0;
+            }
+
             DayEntry currentBestDay = dayEntries[0];
             foreach (DayEntry dayEntry in dayEntries)
             {
