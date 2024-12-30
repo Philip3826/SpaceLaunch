@@ -33,7 +33,7 @@ jobs:
           args: >
             -Dsonar.projectKey=Philip3826_SpaceLaunch
             -Dsonar.organization=Philip3826
-            -Dsonar.host.url=https://sonarcloud.io
+            #-Dsonar.host.url=https://sonarcloud.io
             -Dsonar.login=${{ secrets.SONAR_TOKEN_2 }}
       
 
