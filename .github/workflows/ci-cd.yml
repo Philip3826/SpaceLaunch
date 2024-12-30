@@ -3,7 +3,7 @@ name: CICD Pipeline for Space Launch
 on:
   push:
     branches:
-      - main
+      - master
 
   workflow_dispatch:
 
@@ -22,6 +22,13 @@ jobs:
 
       - name: Restore dependencies
         run: dotnet restore
+
+      - name: Code quality check - Format
+        run: dotnet format --check
+
+      - name: Code quality check - Analyzers
+        run: dotnet build --configuration Release --no-restore /warnaserror
+
 
       - name: Build
         run: dotnet build --configuration Release --no-restore
