@@ -26,16 +26,8 @@ jobs:
       - name: Formatting Check
         run: dotnet format 
         
-      - name: Static Analysis
-        uses: sonarsource/sonarcloud-github-action@v2
-        with:
-          projectBaseDir: ./
-          args: >
-            -Dsonar.projectKey=Philip3826_SpaceLaunch
-            -Dsonar.organization=Philip3826
-            #-Dsonar.host.url=https://sonarcloud.io
-            -Dsonar.login=${{ secrets.SONAR_TOKEN_2 }}
-      
+      - name: SonarQube Cloud Scan
+        uses: SonarSource/sonarcloud-github-action@v4.0.0
 
       - name: Build
         run: dotnet build --configuration Release --no-restore
