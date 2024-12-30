@@ -25,6 +25,7 @@ jobs:
 
       - name: Code quality check - Format
         run: dotnet format --check
+        working-directory: ./
 
       - name: Code quality check - Analyzers
         run: dotnet build --configuration Release --no-restore /warnaserror
