@@ -56,12 +56,12 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/devopsrepo:latest ./SpaceLaunch
+          docker build -t ${{ vars.DOCKER_USERNAME }}/devopsrepo:latest ./SpaceLaunch
 
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@0.28.0
         with:
-          image: ${{ secrets.DOCKER_USERNAME }}/devopsrepo:latest
+          image: ${{ vars.DOCKER_USERNAME }}/devopsrepo:latest
           format: 'sarif'
           output: trivy-report.sarif
 
@@ -72,4 +72,4 @@ jobs:
 
       - name: Push Docker image
         run: |
-          docker push ${{ secrets.DOCKER_USERNAME }}/devopsrepo:latest
+          docker push ${{ vars.DOCKER_USERNAME }}/devopsrepo:latest
