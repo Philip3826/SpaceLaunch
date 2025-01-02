@@ -59,4 +59,4 @@ jobs:
         with:
           push: true
           file: ./SpaceLaunch/Dockerfile
-          tags: user/app:latest
+          tags: ${{ vars.DOCKER_USERNAME }}/devopsrepo
