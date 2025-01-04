@@ -31,10 +31,7 @@ jobs:
       - name: Formatting Check
         run: dotnet format 
         
-      - name: Initialize CodeQL
-        uses: github/codeql-action/init@v3
-        with:
-          languages: csharp
+      
 
       - name: Build
         run: dotnet build --configuration Release --no-restore
@@ -63,6 +60,11 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: artifact
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: csharp
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v3
