@@ -55,11 +55,11 @@ jobs:
 
       - name: Run Snyk to check for vulnerabilities
         uses: snyk/actions/dotnet@master
-        continue-on-error: true # To make sure that SARIF upload gets called
+        continue-on-error: true 
         env:
           SNYK_TOKEN: ${{env.SNYK_TOKEN}}
-        with:
-          args: --sarif-file-output=snyk.sarif
+        with: 
+          args: --sarif-file-output=snyk.sarif --file=./SpaceLaunch.sln
 
       - name: Upload result to GitHub Code Scanning
         uses: github/codeql-action/upload-sarif@v3
