@@ -39,19 +39,44 @@ jobs:
       - name: Build
         run: dotnet build --configuration Release --no-restore
 
+      - name: Run tests
+        run: dotnet test --no-restore --verbosity normal
+        
+      - name: Publish
+        run: dotnet publish --configuration Release --output ./p
+        
+     
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: artifact
+          path: ./publish
+
+
+  code-ql:
+    runs-on: ubuntu-latest
+    needs: [build]
+    steps:
+
+      - name: Download artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: artifact
+
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v3
 
-      - name: Run tests
-        run: dotnet test --no-restore --verbosity normal
-  
+
   snyk:
     runs-on: ubuntu-latest
-    needs: build
+    needs: [build, code-ql]
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
+      - name: Download artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: artifact
 
       - name: Run Snyk to check for vulnerabilities
         uses: snyk/actions/dotnet@master
@@ -69,7 +94,7 @@ jobs:
   
   docker-build-image:
     runs-on: ubuntu-latest
-    needs: [build, snyk]
+    needs: [build, snyk, code-ql]
 
     steps:
       - name: Checkout
