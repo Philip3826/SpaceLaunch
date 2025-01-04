@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using Newtonsoft.Json;
 using SpaceLaunch.Classes;
 using SpaceLaunch.CsvWorkers;
 namespace SpaceLaunch
@@ -28,6 +29,15 @@ namespace SpaceLaunch
 
             DataAnalyzer dataAnalyzer = new DataAnalyzer(reader.GetRawDataColumns.GetRange(1, reader.GetRawDataColumns.Count - 1));
             int bestDay = dataAnalyzer.CalculateBestLaunchDay();
+
+            var jsonOutput = new
+            {
+                bestDay = bestDay,
+                dateGenerated = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss.fffZ")
+            };
+            string jsonFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "BestLaunchDay.json");
+            File.WriteAllText(jsonFilePath, JsonConvert.SerializeObject(jsonOutput, Formatting.Indented));
+            Console.WriteLine($"JSON file generated at: {jsonFilePath}");
 
             Console.WriteLine("Please provide email address(gmail) and password(See README for instructions) of the sender:");
             Console.Write("Email:");
