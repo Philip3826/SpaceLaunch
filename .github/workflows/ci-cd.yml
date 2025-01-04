@@ -7,6 +7,10 @@ on:
 
   workflow_dispatch:
 
+env:
+    DOCKER_USERNAME: ${{ vars.DOCKER_USERNAME }}
+    DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+
 jobs: 
   build:
     runs-on: ubuntu-latest
@@ -51,20 +55,18 @@ jobs:
       - name: Login to Docker Hub
         uses: docker/login-action@v3
         with:
-          username: ${{ vars.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
+          username: ${{ env.DOCKER_USERNAME }}
+          password: ${{ env.DOCKER_PASSWORD }}
       
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
 
       - name: Build Docker image
         run: |
-          docker build -t ${{ vars.DOCKER_USERNAME }}/devopsrepo:latest -f SpaceLaunch/Dockerfile .
+          docker build -t ${{ env.DOCKER_USERNAME }}/devopsrepo:latest -f SpaceLaunch/Dockerfile .
 
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@0.28.0
         with:
-          image-ref: ${{ vars.DOCKER_USERNAME }}/devopsrepo:latest
+          image-ref: ${{ env.DOCKER_USERNAME }}/devopsrepo:latest
           format: 'sarif'
           ignore-unfixed: true
           severity: 'CRITICAL, HIGH'
@@ -77,4 +79,4 @@ jobs:
 
       - name: Push Docker image
         run: |
-          docker push ${{ vars.DOCKER_USERNAME }}/devopsrepo:latest
+          docker push ${{ env.DOCKER_USERNAME }}/devopsrepo:latest
