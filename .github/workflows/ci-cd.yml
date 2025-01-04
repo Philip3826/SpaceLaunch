@@ -59,7 +59,7 @@ jobs:
 
   snyk:
     runs-on: ubuntu-latest
-    needs: [build, code-ql]
+    needs: [build]
 
     steps:
       - name: Download artifact
@@ -83,7 +83,7 @@ jobs:
   
   docker-build-image:
     runs-on: ubuntu-latest
-    needs: [build, snyk, code-ql]
+    needs: [build, snyk]
 
     steps:
       - name: Checkout
