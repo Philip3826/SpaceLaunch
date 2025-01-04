@@ -69,7 +69,7 @@ jobs:
   
   docker-build-image:
     runs-on: ubuntu-latest
-    needs: build
+    needs: [build, snyk]
 
     steps:
       - name: Checkout
