@@ -13,7 +13,7 @@ env:
     SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
 jobs: 
-  build:
+  build-sast:
     runs-on: ubuntu-latest
 
     steps:
@@ -59,7 +59,7 @@ jobs:
 
   snyk:
     runs-on: ubuntu-latest
-    needs: [build]
+    needs: [build-sast]
 
     steps:
       - name: Download artifact
@@ -83,7 +83,7 @@ jobs:
   
   docker-build-image:
     runs-on: ubuntu-latest
-    needs: [build, snyk]
+    needs: [snyk]
 
     steps:
       - name: Checkout
@@ -115,5 +115,6 @@ jobs:
           sarif_file: trivy-report.sarif
 
       - name: Push Docker image
+        if: steps.trivy-scan.outcome == 'success'
         run: |
           docker push ${{ env.DOCKER_USERNAME }}/devopsrepo:latest
