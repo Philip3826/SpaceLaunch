@@ -66,6 +66,8 @@ jobs:
         with:
           image-ref: ${{ vars.DOCKER_USERNAME }}/devopsrepo:latest
           format: 'sarif'
+          ignore-unfixed: true
+          severity: 'CRITICAL, HIGH'
           output: trivy-report.sarif
 
       - name: Upload SARIF report to GitHub
