@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
         - name: space-launch-container
-          image: ${DOCKER_USERNAME}:latest
+          image: ${{ vars.DOCKER_USERNAME}}:latest
           ports:
             - containerPort: 80
