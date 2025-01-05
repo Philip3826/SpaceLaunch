@@ -1,19 +1,13 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: batch/v1
+kind: Job
 metadata:
-  name: space-launch-deployment
+  name: space-launch-job
 spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: space-launch
   template:
-    metadata:
-      labels:
-        app: space-launch
     spec:
       containers:
-        - name: space-launch-container
-          image: ${{ vars.DOCKER_USERNAME}}:latest
-          ports:
-            - containerPort: 80
+      - name: space-launch-container
+        image: ${{ vars.DOCKER_USERNAME}}:latest
+        command: ["dotnet", "SpaceLaunch.dll"]
+      
+  backoffLimit: 1
