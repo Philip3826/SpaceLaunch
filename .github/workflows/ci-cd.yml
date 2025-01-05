@@ -144,13 +144,13 @@ jobs:
             sed "s/${DOCKER_USERNAME}/${{ env.DOCKER_USERNAME }}/g" Kubernetes/Deployment.yaml | kubectl apply -f -
       
 
-      - name: Wait for Job to complete
-        run: |
-          kubectl wait --for=condition=ready pod -l app=space-launch --timeout=300s
-
       - name: See pods
         run: |
-          kubectl get pods -A  
+          kubectl get pods -A
+         
+      - name: See information about deployment
+        run: |
+          kubectl describe deployment space-launch-deployment
 
       - name: Stop minikube
         run: |

@@ -16,5 +16,3 @@ spec:
         - name: space-launch-container
           image: ${DOCKER_USERNAME}:latest
           command: ["dotnet", "SpaceLaunch.dll"]
-          # ports:
-          #   - containerPort: 80
