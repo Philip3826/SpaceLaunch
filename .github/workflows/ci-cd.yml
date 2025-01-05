@@ -149,7 +149,7 @@ jobs:
 
       - name: Wait for Job to complete
         run: |
-          kubectl wait --for=create secret/space-launch-deployment --timeout=90s
+          kubectl wait --for=create secret/space-launch-job --timeout=300s
 
 
       - name: Stop minikube
