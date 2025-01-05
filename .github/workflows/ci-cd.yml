@@ -144,6 +144,10 @@ jobs:
             sed "s/${DOCKER_USERNAME}/${{ env.DOCKER_USERNAME }}/g" Kubernetes/Deployment.yaml | kubectl apply -f -
             kubectl apply -f Kubernetes/Service.yaml
 
+      - name: Get Minikube service URL
+        run: |
+            minikube service space-launch-service --url
+
       - name: Stop minikube
         run: |
            minikube stop
