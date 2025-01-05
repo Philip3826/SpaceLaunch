@@ -9,5 +9,5 @@ spec:
       - name: space-launch-container
         image: ${{ vars.DOCKER_USERNAME}}:latest
         command: ["dotnet", "SpaceLaunch.dll"]
-      
+      restartPolicy: Never
   backoffLimit: 1
