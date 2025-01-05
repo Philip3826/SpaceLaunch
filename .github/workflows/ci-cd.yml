@@ -142,11 +142,10 @@ jobs:
       - name: Deploy to Kubernetes
         run: |  
             sed "s/${DOCKER_USERNAME}/${{ env.DOCKER_USERNAME }}/g" Kubernetes/Deployment.yaml | kubectl apply -f -
-            kubectl apply -f Kubernetes/Service.yaml
-
-      - name: Get Minikube service URL
+      
+      - name: Wait for Job to start
         run: |
-            minikube service space-launch-service --url
+          kubectl wait --for=condition=Ready pod -l job-name=space-launch --timeout=60s   
 
       - name: Stop minikube
         run: |
