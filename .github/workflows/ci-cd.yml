@@ -152,6 +152,10 @@ jobs:
         run: |
           kubectl describe deployment space-launch-deployment
 
+      - name: Wait for Job to complete
+        run: |
+          kubectl wait --for=condition=ready pod -l app=space-launch --timeout=300s
+
       - name: Stop minikube
         run: |
            minikube stop
