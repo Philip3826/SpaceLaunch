@@ -138,8 +138,8 @@ jobs:
 
       - name: Deploy to Kubernetes
         run: |  
-            sed "s/\${DOCKER_USERNAME}/${{ env.DOCKER_USERNAME }}/g" kubernetes/deployment.yaml | kubectl apply -f -  
-            kubectl apply -f kubernetes/service.yaml
+            sed "s/\${DOCKER_USERNAME}/${{ env.DOCKER_USERNAME }}/g" Kubernetes/deployment.yaml | kubectl apply -f -  
+            kubectl apply -f Kubernetes/service.yaml
 
       - name: Stop minikube
         run: |
