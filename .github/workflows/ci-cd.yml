@@ -131,7 +131,19 @@ jobs:
       - name: Start minikube
         uses: medyagh/setup-minikube@latest
 
-      - name: test
-        run: kubectl get pods -A
+
+      - name: Pull Docker image into Minikube
+        run: |
+           minikube image pull ${{ env.DOCKER_USERNAME }}/devopsrepo:latest
+
+      - name: Check if image exists
+        run: | 
+           minikube image ls
+
+      - name: Stop minikube
+        run: |
+           minikube stop
+        
+
    
   
