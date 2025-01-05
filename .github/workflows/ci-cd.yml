@@ -121,3 +121,17 @@ jobs:
         if: success()
         run: |
           docker push ${{ env.DOCKER_USERNAME }}/devopsrepo:latest
+
+
+  deploy-to-minikube:
+    runs-on: ubuntu-latest
+    needs: [docker-build-image]
+
+    steps:
+      - name: Start minikube
+        uses: medyagh/setup-minikube@latest
+
+      - name: test
+        run: kubectl get pods -A
+   
+  
