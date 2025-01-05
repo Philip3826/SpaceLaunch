@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: space-launch-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: space-launch
+  template:
+    metadata:
+      labels:
+        app: space-launch
+    spec:
+      containers:
+        - name: space-launch-container
+          image: ${DOCKER_USERNAME}:latest
+          ports:
+            - containerPort: 80

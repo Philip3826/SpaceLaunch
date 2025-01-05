@@ -136,9 +136,10 @@ jobs:
         run: |
            minikube image pull ${{ env.DOCKER_USERNAME }}/devopsrepo:latest
 
-      - name: Check if image exists
-        run: | 
-           minikube image ls
+      - name: Deploy to Kubernetes
+        run: |  
+            sed "s/\${DOCKER_USERNAME}/${{ env.DOCKER_USERNAME }}/g" kubernetes/deployment.yaml | kubectl apply -f -  
+            kubectl apply -f kubernetes/service.yaml
 
       - name: Stop minikube
         run: |
