@@ -141,8 +141,8 @@ jobs:
 
       - name: Deploy to Kubernetes
         run: |  
-            kubectl apply -f Kubernetes/deployment.yaml
-            kubectl apply -f Kubernetes/service.yaml
+            sed "s/${DOCKER_USERNAME}/${{ env.DOCKER_USERNAME }}/g" Kubernetes/Deployment.yaml | kubectl apply -f 
+            kubectl apply -f Kubernetes/Service.yaml
 
       - name: Stop minikube
         run: |
