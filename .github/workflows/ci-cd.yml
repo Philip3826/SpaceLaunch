@@ -147,6 +147,11 @@ jobs:
         run: |
           kubectl get pods -A  
 
+      - name: Wait for Job to complete
+        run: |
+          kubectl wait --for=create secret/space-launch-deployment --timeout=90s
+
+
       - name: Stop minikube
         run: |
            minikube stop
