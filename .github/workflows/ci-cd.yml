@@ -148,7 +148,7 @@ jobs:
 
       - name: See logs
         run: |
-          chmod +x Scripts/show_output.sh | show_output.sh 
+          chmod +x Scripts/show_output.sh | ./Scripts/show_output.sh space-launch-deployment
 
       - name: See pods
         if: always()
