@@ -149,7 +149,7 @@ jobs:
 
       - name: See logs
         run: |
-          kubectl get pods -A | grep "space-launch-deployment" | awk '{print $2}' | xargs -I kubectl logs {}
+          kubectl get pods -A | grep "space-launch-deployment" | awk '{print $2}' | xargs -I {} kubectl logs {}
 
       - name: See pods
         if: always()
