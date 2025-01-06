@@ -145,12 +145,17 @@ jobs:
         run: |
          kubectl wait --for=condition=ready pod -l app=space-launch --timeout=200s
 
+      - name: See logs
+        run: |
+          kubectl logs pod space-launch
+
       - name: See pods
         if: always()
         run: |
           kubectl get pods -A
 
       - name: Expose deployment
+  
         run: |
           kubectl expose deployment space-launch-deployment --type=NodePort --port=80
 
@@ -162,9 +167,6 @@ jobs:
         run: |
           minikube service space-launch-deployment --url | xargs curl
 
-      - name: Show pod output
-        run: |
-          kubectl logs pod space-launch
 
       - name: Stop minikube
         run: |
