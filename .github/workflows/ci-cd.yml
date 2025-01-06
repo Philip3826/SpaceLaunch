@@ -131,8 +131,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3 
 
+      # - name: Start minikube
+      #   uses: medyagh/setup-minikube@latest
+
       - name: Start minikube
-        uses: medyagh/setup-minikube@latest
+        run: |
+          minikube start 
 
 
       - name: Deploy to Kubernetes
