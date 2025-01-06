@@ -131,20 +131,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3 
 
-      # - name: Start minikube
-      #   uses: medyagh/setup-minikube@latest
-
       - name: Start minikube
-        run: |
-          minikube start 
-
+        uses: medyagh/setup-minikube@latest
 
       - name: Deploy to Kubernetes
         run: |  
           kubectl apply -f Kubernetes/Deployment.yaml
       
-
-         
       - name: Wait for deployment to be ready
         run: |
          kubectl wait --for=condition=ready pod -l app=space-launch --timeout=200s
