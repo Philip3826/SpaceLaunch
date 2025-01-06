@@ -6,6 +6,11 @@ on:
       - master
 
   workflow_dispatch:
+    inputs:
+      target:
+        description: "Select deployment target: (aws/minikube)"
+        required: true
+        default: "minikube"
 
 env:
     DOCKER_USERNAME: ${{ vars.DOCKER_USERNAME }}
@@ -125,6 +130,7 @@ jobs:
 
   deploy-to-minikube:
     runs-on: ubuntu-latest
+    if: ${{github.event.inputs.target}} == minikube
     needs: [docker-build-image]
 
     steps:
