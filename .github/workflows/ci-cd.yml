@@ -148,13 +148,14 @@ jobs:
         run: |
           kubectl get pods -A
          
-      - name: See information about deployment
-        run: |
-          kubectl describe deployment space-launch-deployment
 
       - name: Expose deployment
         run: |
           kubectl expose deployment space-launch-deployment --type=NodePort --port=80
+
+      - name: See information about deployment
+        run: |
+          kubectl describe deployment space-launch-deployment
 
       - name: Connect to deployment
         run: |
