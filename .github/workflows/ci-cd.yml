@@ -146,6 +146,7 @@ jobs:
          kubectl wait --for=condition=ready pod -l app=space-launch --timeout=200s
 
       - name: See logs
+        if: always()
         run: |
           kubectl logs pod space-launch
 

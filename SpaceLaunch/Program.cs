@@ -12,6 +12,7 @@ namespace SpaceLaunch
             Console.WriteLine("Hello! Welcome to Space Launch Calculator");
 
             string filePathInput = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "test.csv");
+            Console.ReadLine();
             if (!File.Exists(filePathInput) || Path.GetExtension(filePathInput) != ".csv")
             {
                 Console.WriteLine("The provided path is not a valid one!");
