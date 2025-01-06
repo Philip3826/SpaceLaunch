@@ -142,9 +142,9 @@ jobs:
         run: |  
           kubectl apply -f Kubernetes/Deployment.yaml
       
-      - name: Wait for deployment to be ready
-        run: |
-         kubectl wait --for=condition=ready pod -l app=space-launch --timeout=300s
+      # - name: Wait for deployment to be ready
+      #   run: |
+      #    kubectl wait --for=condition=ready pod -l app=space-launch --timeout=300s
 
       - name: See logs
         run: |
