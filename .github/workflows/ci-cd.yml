@@ -134,6 +134,10 @@ jobs:
       - name: Start minikube
         uses: medyagh/setup-minikube@latest
 
+      - name: Check minikube status
+        run: 
+          minikube status
+
       - name: Deploy to Kubernetes
         run: |  
           kubectl apply -f Kubernetes/Deployment.yaml
