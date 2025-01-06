@@ -135,10 +135,6 @@ jobs:
         uses: medyagh/setup-minikube@latest
 
 
-      - name: Pull Docker image into Minikube
-        run: |
-           minikube image pull ${{ env.DOCKER_USERNAME }}/devopsrepo:latest
-
       - name: Deploy to Kubernetes
         run: |  
           kubectl apply -f Kubernetes/Deployment.yaml
@@ -148,6 +144,10 @@ jobs:
         run: |
           kubectl get pods -A
          
+      - name: Wait for deployment to be ready
+        run: |
+         kubectl wait --for=condition=ready pod -l app=space-launch --timeout=200s
+
 
       - name: Expose deployment
         run: |
@@ -156,10 +156,6 @@ jobs:
       - name: See information about deployment
         run: |
           kubectl describe deployment space-launch-deployment
-
-      - name: Wait for deployment to be ready
-        run: |
-          kubectl wait --for=condition=ready --timeout=200s deployment/space-launch-deployment
 
       - name: Connect to deployment
         run: |
