@@ -152,9 +152,13 @@ jobs:
         run: |
           kubectl describe deployment space-launch-deployment
 
-      - name: Wait for deployment to complete
+      - name: Expose deployment
         run: |
-          kubectl wait --for=condition=ready pod -l app=space-launch --timeout=300s
+          kubectl expose deployment space-launch-deployment --type=NodePort --port=80
+
+      - name: Connect to deployment
+        run: |
+          minikube service space-launch-deployment --url | xargs curl
 
       - name: Show pod output
         run: |
