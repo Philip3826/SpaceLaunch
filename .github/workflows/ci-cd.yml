@@ -148,7 +148,7 @@ jobs:
       - name: See logs
         if: always()
         run: |
-          kubectl logs space-launch-deployment
+          kubectl logs pod/space-launch-deployment
 
       - name: See pods
         if: always()
