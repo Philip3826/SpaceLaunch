@@ -15,4 +15,5 @@ spec:
       containers:
         - name: space-launch-container
           image: imdow/devopsrepo:latest
+          command: ["dotnet", "SpaceLaunch.dll"]
           
