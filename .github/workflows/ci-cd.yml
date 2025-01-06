@@ -142,13 +142,15 @@ jobs:
         run: |  
           kubectl apply -f Kubernetes/Deployment.yaml
       
-      # - name: Wait for deployment to be ready
-      #   run: |
-      #    kubectl wait --for=condition=ready pod -l app=space-launch --timeout=300s
+      - name: Wait for deployment to be ready
+        continue-on-error: true
+        run: |
+         kubectl wait --for=condition=ready pod -l app=space-launch --timeout=300s
 
       - name: See logs
         run: |
-          chmod +x Scripts/show_output.sh | ./Scripts/show_output.sh space-launch-deployment
+          chmod +x ./Scripts/show_output.sh  
+          ./Scripts/show_output.sh space-launch-deployment
 
       - name: See pods
         if: always()
