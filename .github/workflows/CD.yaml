@@ -79,15 +79,15 @@ jobs:
       - name: Login to Amazon ECR
         uses: aws-actions/amazon-ecr-login@v1
 
+      - name: Update kube config
+        run: aws eks update-kubeconfig --name ${{ env.EKS_CLUSTER_NAME }} --region ${{ env.AWS_REGION }}
+   
       - name: Pull Docker image from hub to ECR
         run: |
           docker pull ${{ env.DOCKER_USERNAME }}/devopsrepo:latest
           docker tag ${{ env.DOCKER_USERNAME }}/devopsrepo:latest ${{ env.ECR_REPOSITORY }}:latest
           docker push ${{ env.ECR_REPOSITORY }}:latest
 
-      - name: Update kube config
-        run: aws eks update-kubeconfig --name ${{ env.EKS_CLUSTER_NAME }} --region ${{ env.AWS_REGION }}
-   
       
       - name: Deploy to EKS
         run: |
