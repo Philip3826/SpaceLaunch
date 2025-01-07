@@ -89,8 +89,8 @@ jobs:
       - name: Pull Docker image from hub to ECR
         run: |
           docker pull ${{ env.DOCKER_USERNAME }}/devopsrepo:latest
-          docker tag ${{ env.DOCKER_USERNAME }}/devopsrepo:latest ${{ env.ECR_REPOSITORY }}:latest
-          docker push ${{ env.ECR_REPOSITORY }}:latest
+          docker tag ${{ env.DOCKER_USERNAME }}/devopsrepo:latest ${{ secrets.ECR_REPOSITORY_URI }}:latest
+          docker push ${{ secrets.ECR_REPOSITORY_URI }}:latest
 
       
       - name: Deploy to EKS
