@@ -96,15 +96,25 @@ jobs:
       #     docker tag ${{ env.DOCKER_USERNAME }}/devopsrepo:latest ${{ secrets.ECR_REPOSITORY_URI }}:latest
       #     docker push ${{ secrets.ECR_REPOSITORY_URI }}:latest
 
-      - name: See current pods
-        run: |
-          kubectl get pods -A
 
       
       - name: Deploy to EKS
         run: |
           kubectl apply -f Kubernetes/Deployment.yaml 
 
+      - name: See current pods
+        run: |
+          kubectl get pods -A
+
+      - name: See logs
+        run: |
+          kubectl get pods -A | grep "space-launch-deployment" | awk '{print $2}' | xargs -I {} kubectl logs {}
+
+      - name: Delete deployment
+        run: |
+          kubectl delete -f Kubernetes/Deployment.yaml
+
+      
 
       
       
