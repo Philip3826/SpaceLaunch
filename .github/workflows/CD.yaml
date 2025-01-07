@@ -81,8 +81,8 @@ jobs:
       - name: Update kube config
         run: aws eks update-kubeconfig --name ${{ env.EKS_CLUSTER_NAME }} --region ${{ env.AWS_REGION }}
    
-      - name: Get pods
-        run: kubectl get pods -A
+      - name: View Configuration
+        run: kubectl config view
       # - name: Deploy to EKS
       #   # env:
       #   #   ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}        
