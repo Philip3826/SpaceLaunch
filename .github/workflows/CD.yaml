@@ -92,6 +92,10 @@ jobs:
           docker tag ${{ env.DOCKER_USERNAME }}/devopsrepo:latest ${{ secrets.ECR_REPOSITORY_URI }}:latest
           docker push ${{ secrets.ECR_REPOSITORY_URI }}:latest
 
+      - name: See current pods
+        run: |
+          kubectl get pods -A
+
       
       - name: Deploy to EKS
         run: |
