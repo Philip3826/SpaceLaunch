@@ -86,11 +86,11 @@ jobs:
       - name: Update kube config
         run: aws eks update-kubeconfig --name ${{ env.EKS_CLUSTER_NAME }} --region ${{ env.AWS_REGION }}
    
-      - name: Pull Docker image from hub to ECR
-        run: |
-          docker pull ${{ env.DOCKER_USERNAME }}/devopsrepo:latest
-          docker tag ${{ env.DOCKER_USERNAME }}/devopsrepo:latest ${{ secrets.ECR_REPOSITORY_URI }}:latest
-          docker push ${{ secrets.ECR_REPOSITORY_URI }}:latest
+      # - name: Pull Docker image from hub to ECR
+      #   run: |
+      #     docker pull ${{ env.DOCKER_USERNAME }}/devopsrepo:latest
+      #     docker tag ${{ env.DOCKER_USERNAME }}/devopsrepo:latest ${{ secrets.ECR_REPOSITORY_URI }}:latest
+      #     docker push ${{ secrets.ECR_REPOSITORY_URI }}:latest
 
       - name: See current pods
         run: |
