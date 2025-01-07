@@ -85,6 +85,10 @@ jobs:
 
       - name: Update kube config
         run: aws eks update-kubeconfig --name ${{ env.EKS_CLUSTER_NAME }} --region ${{ env.AWS_REGION }}
+
+      - name: See current config
+        run: |
+          kubectl config current-context    
    
       # - name: Pull Docker image from hub to ECR
       #   run: |
