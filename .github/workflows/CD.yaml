@@ -24,7 +24,7 @@ env:
 jobs:
   deploy-to-minikube:
     runs-on: ubuntu-latest
-    if: ${{github.event.inputs.target == minikube }}
+    if: ${{github.event.inputs.target == 'minikube' }}
     steps:
 
       - name: Checkout
@@ -62,7 +62,7 @@ jobs:
            
   deploy-to-aws:
     runs-on: ubuntu-latest
-    if: ${{github.event.inputs.target == aws }} 
+    if: ${{github.event.inputs.target == 'aws' }} 
     steps:
 
       - name: Checkout
