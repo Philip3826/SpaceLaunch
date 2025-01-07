@@ -76,6 +76,10 @@ jobs:
           aws-secret-access-key: ${{ env.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{env.AWS_REGION}}
 
+      - name: Sts GetCallerIdentity
+        run: |
+          aws sts get-caller-identity
+
       - name: Login to Amazon ECR
         uses: aws-actions/amazon-ecr-login@v1
 
