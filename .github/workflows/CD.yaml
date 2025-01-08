@@ -67,7 +67,7 @@ jobs:
 
       - name: See logs
         run: |
-          kubectl get pods -A | grep "space-launch-job" | awk '{print $2}' | xargs -I {} kubectl logs {} 
+          kubectl get pods -A | grep "space-launch-job" | awk '{print $2}' | xargs -I {} kubectl logs -n space-launch-namespace {} 
 
 
       - name: Stop minikube
