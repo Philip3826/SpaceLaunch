@@ -12,6 +12,13 @@ spec:
       containers:
         - name: space-launch-container
           image: imdow/devopsrepo:latest
+          resources:
+            limits:
+              cpu: "100m"
+              memory: "200Mi"
+            requests:
+              cpu: "100m"
+              memory: "100Mi"
           command: ["dotnet"]
           args: ["SpaceLaunch.dll"]
       restartPolicy: OnFailure
