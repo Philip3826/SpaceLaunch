@@ -38,23 +38,34 @@ jobs:
         run: 
           minikube status
 
-      - name: Deploy to Kubernetes
+      - name: Deploy app to Kubernetes
         run: |  
           kubectl apply -f Kubernetes/JobDeployment.yaml
       
-      - name: Wait for deployment to be ready
-        continue-on-error: true
+      - name: Wait for space job to complete
         run: |
-         kubectl wait --for=condition=ready pod -l app=space-launch --timeout=60s
+          kubectl wait --for=condition=complete --timeout=30s job/space-launch-job
+
+      - name: Deploy kube-bench to Kubernetes
+        run: |  
+          kubectl apply -f Kubernetes/KubeBenchJob.yaml
+
+      - name: Wait for kube-bench job to complete
+        run: |
+          kubectl wait --for=condition=complete --timeout=30s job/kube-bench
+     
+      - name: See pods
+        run: |
+          kubectl get pods -A
+
+      - name: See kube-bench logs
+        run: |
+          kubectl get pods -A | grep "kube-bench" | awk '{print $2}' | xargs -I {} kubectl logs {}
 
       - name: See logs
         run: |
           kubectl get pods -A | grep "space-launch-job" | awk '{print $2}' | xargs -I {} kubectl logs {}
 
-      - name: See pods
-        if: always()
-        run: |
-          kubectl get pods -A
 
       - name: Stop minikube
         if: always()
@@ -89,18 +100,10 @@ jobs:
       - name: See current config
         run: |
           kubectl config current-context    
-   
-      # - name: Pull Docker image from hub to ECR
-      #   run: |
-      #     docker pull ${{ env.DOCKER_USERNAME }}/devopsrepo:latest
-      #     docker tag ${{ env.DOCKER_USERNAME }}/devopsrepo:latest ${{ secrets.ECR_REPOSITORY_URI }}:latest
-      #     docker push ${{ secrets.ECR_REPOSITORY_URI }}:latest
-
-
       
-      # - name: Deploy to EKS
-      #   run: |
-      #     kubectl apply -f Kubernetes/Deployment.yaml 
+      - name: Deploy to EKS
+        run: |
+          kubectl apply -f Kubernetes/JobDeployment.yaml 
 
       - name: See current pods
         run: |
@@ -108,11 +111,12 @@ jobs:
 
       - name: See logs
         run: |
-          kubectl get pods -A | grep "space-launch-deployment" | awk '{print $2}' | xargs -I {} kubectl logs {}
+          kubectl get pods -A | grep "space-launch-job" | awk '{print $2}' | xargs -I {} kubectl logs {}
+
 
       - name: Delete deployment
         run: |
-          kubectl delete -f Kubernetes/Deployment.yaml
+          kubectl delete -f Kubernetes/JobDeployment.yaml
 
       
 
