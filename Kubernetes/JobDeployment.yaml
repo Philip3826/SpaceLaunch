@@ -2,6 +2,7 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: space-launch-job
+  namespace: space-launch-namespace
 spec:
   template:
     metadata:

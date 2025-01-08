@@ -38,6 +38,9 @@ jobs:
         run: 
           minikube status
 
+      - name: Create namespace
+        run: kubectl create namespace space-launch-namespace
+
       - name: Deploy app to Kubernetes
         run: |  
           kubectl apply -f Kubernetes/JobDeployment.yaml
@@ -104,6 +107,8 @@ jobs:
       - name: Deploy to EKS
         run: |
           kubectl apply -f Kubernetes/JobDeployment.yaml 
+
+
 
       - name: See current pods
         run: |
