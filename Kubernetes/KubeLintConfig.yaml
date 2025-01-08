@@ -1,6 +1,7 @@
-lint:
+checks:
+  addAllBuiltIn: true
   exclude:
-    - run-as-non-root
-    - read-only-root-filesystem
-    - host-pid
-    - invalid-container-image
+    - "run-as-non-root"
+    - "read-only-root-filesystem"
+    - "host-pid"
+    - "invalid-container-image"
