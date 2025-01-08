@@ -3,7 +3,6 @@ kind: Job
 metadata:
   name: space-launch-job
 spec:
-  replicas: 1
   selector:
     matchLabels:
       app: space-launch
@@ -17,4 +16,3 @@ spec:
           image: imdow/devopsrepo:latest
           command: ["dotnet"]
           args: ["SpaceLaunch.dll"]
-backoffLimit: 3
