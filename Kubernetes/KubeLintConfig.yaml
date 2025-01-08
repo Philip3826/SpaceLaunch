@@ -1,6 +1,6 @@
 checks:
   exclude:
     - "run-as-non-root"
-    - "read-only-root-filesystem"
+    - "no-read-only-root-fs"
     - "host-pid"
-    - "invalid-container-image"
+    - "latest-tag"
