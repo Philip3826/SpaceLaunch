@@ -47,7 +47,7 @@ jobs:
       
       - name: Wait for space job to complete
         run: |
-          kubectl wait --for=condition=complete --timeout=30s job/space-launch-job
+          kubectl wait --for=condition=complete --timeout=30s job/space-launch-job -n space-launch-namespace
 
       - name: Deploy kube-bench to Kubernetes
         run: |  
