@@ -94,7 +94,7 @@ jobs:
          uses: stackrox/kube-linter-action@v1.0.4
          continue-on-error: true
          with:
-           args: do-not-auto-add-defaults
+           config: ./Kubernetes/KubeLintConfig.yaml
            directory: ./Kubernetes
            format: sarif
            output-file: kube-linter.sarif

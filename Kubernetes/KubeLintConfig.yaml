@@ -1,0 +1,6 @@
+lint:
+  exclude:
+    - run-as-non-root
+    - read-only-root-filesystem
+    - host-pid
+    - invalid-container-image
