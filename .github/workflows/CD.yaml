@@ -40,7 +40,7 @@ jobs:
 
       - name: Deploy to Kubernetes
         run: |  
-          kubectl apply -f Kubernetes/Deployment.yaml
+          kubectl apply -f Kubernetes/JobDeployment.yaml
       
       - name: Wait for deployment to be ready
         continue-on-error: true

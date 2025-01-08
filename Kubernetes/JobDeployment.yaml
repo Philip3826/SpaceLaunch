@@ -1,0 +1,20 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: space-launch-job
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: space-launch
+  template:
+    metadata:
+      labels:
+        app: space-launch
+    spec:
+      containers:
+        - name: space-launch-container
+          image: imdow/devopsrepo:latest
+          command: ["dotnet"]
+          args: ["SpaceLaunch.dll"]
+backoffLimit: 3
