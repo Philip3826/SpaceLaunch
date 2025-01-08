@@ -106,7 +106,7 @@ jobs:
   
   docker-build-image:
     runs-on: ubuntu-latest
-    needs: [snyk]
+    needs: [scan-k8s-config]
 
     steps:
       - name: Download artifact
