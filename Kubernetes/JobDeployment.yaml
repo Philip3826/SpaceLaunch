@@ -16,3 +16,4 @@ spec:
           image: imdow/devopsrepo:latest
           command: ["dotnet"]
           args: ["SpaceLaunch.dll"]
+      restartPolicy: onFailure
