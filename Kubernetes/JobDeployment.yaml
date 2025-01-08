@@ -3,9 +3,6 @@ kind: Job
 metadata:
   name: space-launch-job
 spec:
-  selector:
-    matchLabels:
-      app: space-launch
   template:
     metadata:
       labels:
@@ -16,4 +13,4 @@ spec:
           image: imdow/devopsrepo:latest
           command: ["dotnet"]
           args: ["SpaceLaunch.dll"]
-      restartPolicy: onFailure
+      restartPolicy: OnFailure
