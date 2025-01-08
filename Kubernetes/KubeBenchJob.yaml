@@ -12,6 +12,13 @@ spec:
         - command: ["kube-bench"]
           image: docker.io/aquasec/kube-bench:v0.9.4
           name: kube-bench
+          resources:
+            limits:
+              cpu: "100m"
+              memory: "200Mi"
+            requests:
+              cpu: "100m"
+              memory: "100Mi"
           volumeMounts:
             - name: var-lib-cni
               mountPath: /var/lib/cni
