@@ -60,7 +60,7 @@ jobs:
 
       - name: See kube-bench logs
         run: |
-          kubectl get pods -A | grep "kube-bench" | awk '{print $2}' | xargs -I {} kubectl logs {} | grep "[FAIL]"
+          kubectl get pods -A | grep "kube-bench" | awk '{print $2}' | xargs -I {} kubectl logs {} | xargs -I {} grep "[FAIL]" {}
 
       - name: See logs
         run: |
