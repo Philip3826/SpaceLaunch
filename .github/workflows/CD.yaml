@@ -21,7 +21,7 @@ env:
 jobs:
   deploy-to-minikube:
     runs-on: ubuntu-latest
-    if: ${{github.event.inputs.target == 'minikube' }}
+    # if: ${{github.event.inputs.target == 'minikube' }}
     steps:
 
 
