@@ -6,22 +6,32 @@ on:
       types:
         - completed
     workflow_dispatch:
-  
+      inputs:
+        target:
+          description: "Select deployment target: (aws/minikube)"
+          required: true
+          default: "minikube"
+        image-tag:
+          description: "Select image for deployment: (dev/master)"
+          required: true
+          default: "dev"
 env:
    EKS_CLUSTER_NAME: ${{ vars.EKS_CLUSTER_NAME }}
    AWS_REGION: ${{ vars.AWS_REGION }}
    AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
    AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-   BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
 
 jobs:
   deploy-to-minikube:
     runs-on: ubuntu-latest
-    if: ${{ env.BRANCH_NAME == 'dev' }}
+    if: ${{github.event.inputs.target == 'minikube' }}
     steps:
+
 
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_branch }}
 
       - name: Start minikube
         uses: medyagh/setup-minikube@latest
@@ -37,7 +47,7 @@ jobs:
         run: |  
           kubectl apply -f Kubernetes/JobDeployment.yaml
         env:
-          TAG: ${{ env.BRANCH_NAME }}
+          TAG: ${{github.event.inputs.image-tag}}
       
       - name: Wait for space job to complete
         run: |
@@ -70,7 +80,7 @@ jobs:
            
   deploy-to-aws:
     runs-on: ubuntu-latest
-    if: ${{ env.BRANCH_NAME == 'master' }} 
+    if: ${{github.event.inputs.target == 'aws' }}
     steps:
 
       - name: Checkout
@@ -101,7 +111,7 @@ jobs:
         run: |
           kubectl apply -f Kubernetes/JobDeployment.yaml 
         env:
-           TAG: ${{ env.BRANCH_NAME }}
+          TAG: ${{github.event.inputs.image-tag}}
 
       - name: See current pods
         run: |

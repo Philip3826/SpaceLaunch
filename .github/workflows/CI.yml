@@ -164,6 +164,23 @@ jobs:
           docker push ${{ env.DOCKER_USERNAME }}/devopsrepo:${{env.BRANCH_NAME}}
 
 
+  build-artifact-with-branch-name:
+    runs-on: ubuntu-latest
+  
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Save environment variable to file
+        run: echo "BRANCH_NAME=${{env.BRANCH_NAME}}" > branch_env.txt
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: branch-artifact
+          path: branch_env.txt
+
+
   
         
 
