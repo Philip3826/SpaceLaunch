@@ -139,7 +139,7 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t ${{ env.DOCKER_USERNAME }}/devopsrepo:latest-{{$github.ref_name}} -f SpaceLaunch/Dockerfile .
+          docker build -t ${{ env.DOCKER_USERNAME }}/devopsrepo:{{$github.ref_name}} -f SpaceLaunch/Dockerfile .
 
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@0.28.0
