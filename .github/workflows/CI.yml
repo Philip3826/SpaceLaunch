@@ -19,7 +19,8 @@ env:
     DOCKER_USERNAME: ${{ vars.DOCKER_USERNAME }}
     DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
     SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-    SOURCE_BRANCH: "${GITHUB_HEAD_REF:-$GITHUB_REF_NAME}"
+    BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
+    
 
 jobs:
 
@@ -140,7 +141,7 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t ${{ env.DOCKER_USERNAME }}/devopsrepo:{{$github.ref}} -f SpaceLaunch/Dockerfile .
+          docker build -t ${{ env.DOCKER_USERNAME }}/devopsrepo:${{env.BRANCH_NAME}} -f SpaceLaunch/Dockerfile .
 
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@0.28.0

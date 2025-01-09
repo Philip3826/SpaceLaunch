@@ -1,28 +1,27 @@
 name: CD Pipeline
 
 on:
-    # workflow_run:
-    #   workflows: ["CI pipeline"]
-    #   types:
-    #     - completed
+    workflow_run:
+      workflows: ["CI pipeline"]
+      types:
+        - completed
   workflow_dispatch:
   
 
 
 env:
-   DOCKER_USERNAME: ${{ vars.DOCKER_USERNAME }}
    EKS_CLUSTER_NAME: ${{ vars.EKS_CLUSTER_NAME }}
    AWS_REGION: ${{ vars.AWS_REGION }}
    AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
    AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-   ECR_REPOSITORY: ${{ vars.ECR_REPOSITORY }}
+   BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
    
 
 
 jobs:
   deploy-to-minikube:
     runs-on: ubuntu-latest
-    if: ${{github.ref == 'dev' }}
+    if: ${{BRANCH_NAME == 'dev' }}
     steps:
 
       - name: Checkout
@@ -42,7 +41,7 @@ jobs:
         run: |  
           kubectl apply -f Kubernetes/JobDeployment.yaml
         env:
-          TAG: ${{github.ref}}
+          TAG: ${{BRANCH_NAME}}
       
       - name: Wait for space job to complete
         run: |
@@ -76,7 +75,7 @@ jobs:
            
   deploy-to-aws:
     runs-on: ubuntu-latest
-    if: ${{github.ref == 'master' }} 
+    if: ${{BRANCH_NAME == 'master' }} 
     steps:
 
       - name: Checkout
@@ -107,7 +106,7 @@ jobs:
         run: |
           kubectl apply -f Kubernetes/JobDeployment.yaml 
         env:
-           TAG: ${{github.ref}}
+           TAG: ${{BRANCH_NAME}}
 
 
       - name: See current pods
