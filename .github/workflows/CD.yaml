@@ -11,10 +11,7 @@ on:
           description: "Select deployment target: (aws/minikube)"
           required: true
           default: "minikube"
-        image-tag:
-          description: "Select image for deployment: (dev/master)"
-          required: true
-          default: "dev"
+ 
 env:
    EKS_CLUSTER_NAME: ${{ vars.EKS_CLUSTER_NAME }}
    AWS_REGION: ${{ vars.AWS_REGION }}
@@ -45,8 +42,7 @@ jobs:
       - name: Deploy app to Kubernetes
         run: |  
           kubectl apply -f Kubernetes/JobDeployment.yaml
-        env:
-          TAG: ${{github.event.inputs.image-tag}}
+        
       
       - name: Wait for space job to complete
         run: |
@@ -109,8 +105,7 @@ jobs:
       - name: Deploy to EKS
         run: |
           kubectl apply -f Kubernetes/JobDeployment.yaml 
-        env:
-          TAG: ${{github.event.inputs.image-tag}}
+
 
       - name: See current pods
         run: |

@@ -18,8 +18,6 @@ env:
     DOCKER_USERNAME: ${{ vars.DOCKER_USERNAME }}
     DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
     SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-    BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
-    
 
 jobs:
  
@@ -133,12 +131,12 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t ${{ env.DOCKER_USERNAME }}/devopsrepo:${{env.BRANCH_NAME}} -f SpaceLaunch/Dockerfile .
+          docker build -t ${{ env.DOCKER_USERNAME }}/devopsrepo:latest -f SpaceLaunch/Dockerfile .
 
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@0.28.0
         with:
-          image-ref: ${{ env.DOCKER_USERNAME }}/devopsrepo:${{env.BRANCH_NAME}}
+          image-ref: ${{ env.DOCKER_USERNAME }}/devopsrepo:latest
           format: 'sarif'
           ignore-unfixed: true
           severity: 'CRITICAL'
@@ -153,7 +151,7 @@ jobs:
       - name: Push Docker image
         if: success()
         run: |
-          docker push ${{ env.DOCKER_USERNAME }}/devopsrepo:${{env.BRANCH_NAME}}
+          docker push ${{ env.DOCKER_USERNAME }}/devopsrepo:latest
 
 
 
