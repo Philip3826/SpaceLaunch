@@ -16,13 +16,13 @@ env:
    AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
    AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
    ECR_REPOSITORY: ${{ vars.ECR_REPOSITORY }}
-
+   
 
 
 jobs:
   deploy-to-minikube:
     runs-on: ubuntu-latest
-    if: ${{github.ref_name == 'dev' }}
+    if: ${{github.ref == 'dev' }}
     steps:
 
       - name: Checkout
@@ -42,7 +42,7 @@ jobs:
         run: |  
           kubectl apply -f Kubernetes/JobDeployment.yaml
         env:
-          TAG: ${{github.ref_name}}
+          TAG: ${{github.ref}}
       
       - name: Wait for space job to complete
         run: |
@@ -76,7 +76,7 @@ jobs:
            
   deploy-to-aws:
     runs-on: ubuntu-latest
-    if: ${{github.ref_name == 'master' }} 
+    if: ${{github.ref == 'master' }} 
     steps:
 
       - name: Checkout
@@ -107,7 +107,7 @@ jobs:
         run: |
           kubectl apply -f Kubernetes/JobDeployment.yaml 
         env:
-           TAG: ${{github.ref_name}}
+           TAG: ${{github.ref}}
 
 
       - name: See current pods
