@@ -11,7 +11,7 @@ spec:
     spec:
       containers:
         - name: space-launch-container
-          image: imdow/devopsrepo:latest
+          image: imdow/devopsrepo:latest-${TAG}
           resources:
             limits:
               cpu: "100m"

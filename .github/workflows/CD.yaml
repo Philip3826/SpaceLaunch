@@ -5,12 +5,9 @@ on:
     #   workflows: ["CI pipeline"]
     #   types:
     #     - completed
-    workflow_dispatch:
-      inputs:
-        target:
-          description: "Select deployment target: (aws/minikube)"
-          required: true
-          default: "minikube"
+  workflow_dispatch:
+  
+
 
 env:
    DOCKER_USERNAME: ${{ vars.DOCKER_USERNAME }}
@@ -25,7 +22,7 @@ env:
 jobs:
   deploy-to-minikube:
     runs-on: ubuntu-latest
-    if: ${{github.event.inputs.target == 'minikube' }}
+    if: ${{github.ref_name == 'dev' }}
     steps:
 
       - name: Checkout
@@ -44,6 +41,8 @@ jobs:
       - name: Deploy app to Kubernetes
         run: |  
           kubectl apply -f Kubernetes/JobDeployment.yaml
+        env:
+          TAG: ${{github.ref_name}}
       
       - name: Wait for space job to complete
         run: |
@@ -77,7 +76,7 @@ jobs:
            
   deploy-to-aws:
     runs-on: ubuntu-latest
-    if: ${{github.event.inputs.target == 'aws' }} 
+    if: ${{github.ref_name == 'master' }} 
     steps:
 
       - name: Checkout
@@ -107,7 +106,8 @@ jobs:
       - name: Deploy to EKS
         run: |
           kubectl apply -f Kubernetes/JobDeployment.yaml 
-
+        env:
+           TAG: ${{github.ref_name}}
 
 
       - name: See current pods
