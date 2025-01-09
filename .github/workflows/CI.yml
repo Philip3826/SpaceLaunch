@@ -1,9 +1,17 @@
 name: CI pipeline
 
 on:
-  # push:
-  #   branches:
-  #     - master
+  push:
+    branches:
+      - dev
+      - master
+  pull_request:
+    branches:
+      - dev
+      - master
+    types:
+      - closed
+
 
   workflow_dispatch:
 
@@ -11,11 +19,20 @@ env:
     DOCKER_USERNAME: ${{ vars.DOCKER_USERNAME }}
     DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
     SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+    BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
+    
 
-jobs: 
+jobs:
+
+  # if_merged:
+  #   if: github.event.pull_request.merged == true
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #   - run: |
+  #       echo The PR was merged
+
   build-sast:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -124,12 +141,12 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t ${{ env.DOCKER_USERNAME }}/devopsrepo:latest -f SpaceLaunch/Dockerfile .
+          docker build -t ${{ env.DOCKER_USERNAME }}/devopsrepo:${{env.BRANCH_NAME}} -f SpaceLaunch/Dockerfile .
 
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@0.28.0
         with:
-          image-ref: ${{ env.DOCKER_USERNAME }}/devopsrepo:latest
+          image-ref: ${{ env.DOCKER_USERNAME }}/devopsrepo:${{env.BRANCH_NAME}}
           format: 'sarif'
           ignore-unfixed: true
           severity: 'CRITICAL'
@@ -144,7 +161,7 @@ jobs:
       - name: Push Docker image
         if: success()
         run: |
-          docker push ${{ env.DOCKER_USERNAME }}/devopsrepo:latest
+          docker push ${{ env.DOCKER_USERNAME }}/devopsrepo:${{env.BRANCH_NAME}}
 
 
   
