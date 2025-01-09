@@ -5,16 +5,6 @@ on:
       workflows: ["CI pipeline"]
       types:
         - completed
-      inputs:
-        target:
-          description: "Select deployment target: (aws/minikube)"
-          required: true
-          default: "minikube"
-        image-tag:
-          description: "Select image for deployment: (dev/master)"
-          required: true
-          default: "dev"
-
     workflow_dispatch:
       inputs:
         target:
