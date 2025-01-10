@@ -32,9 +32,15 @@ namespace SpaceLaunch
 
             var jsonOutput = new
             {
-                bestDay = bestDay,
+                bestDay,
                 dateGenerated = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss.fffZ")
             };
+
+            RegionalEntry entry1 = new RegionalEntry { Temperature = 25, Region = "North Europe" };
+            RegionalEntry entry2 = new RegionalEntry { Temperature = 18, Region = "South Europe"};
+            double temperatureDifference = entry1.Temperature - entry2.Temperature;
+            Console.WriteLine($"Temperature difference between {entry1.Region} and {entry2.Region}: {temperatureDifference}°C");
+
             string jsonFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "BestLaunchDay.json");
             File.WriteAllText(jsonFilePath, JsonConvert.SerializeObject(jsonOutput, Formatting.Indented));
             Console.WriteLine($"JSON file generated at: {jsonFilePath}");
